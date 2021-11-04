@@ -25,6 +25,6 @@ public class User {
     @Column(nullable = false)
     String password;
     @Column
-    UserRole userRole;
-//    String role;
+   // UserRole userRole;
+    String role;
 }

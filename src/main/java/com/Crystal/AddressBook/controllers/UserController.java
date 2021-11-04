@@ -49,6 +49,12 @@ public class UserController {
         userService.updateUserPassword(userId,user);
         return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
     }
+    @PutMapping({"/user/{username}"})
+    public ResponseEntity<User> updateUserPassword(@PathVariable("username") String username, @RequestBody User user){
+        User thisUser = userService.getUserByUsername(username);
+        userService.updateUserPassword(thisUser.getId(), user);
+        return new ResponseEntity<>(userService.getUserByUsername(username), HttpStatus.OK);
+    }
     @DeleteMapping({"/{userId}"})
     public ResponseEntity<User> deleteUser(@PathVariable("userId") Long userId) {
         userService.deleteUser(userId);

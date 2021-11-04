@@ -27,14 +27,14 @@ public class UserLoader implements CommandLineRunner {
                     User.builder()
                         .username("sparky")
                         .password("roadIslandpIckles")
-                        .userRole(UserRole.ADMIN)
+                        .role(UserRole.ADMIN.name())
                     .build()
             );
             userRepository.save(
                     User.builder()
                             .username("skyDancer")
                             .password("free456wind")
-                            .userRole(UserRole.USER_ROLE)
+                            .role(UserRole.USER.name())
                             .build()
             );
 
