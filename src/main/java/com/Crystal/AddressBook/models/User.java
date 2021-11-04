@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -24,7 +22,8 @@ public class User {
     String username;
     @Column(nullable = false)
     String password;
-    @Column
-   // UserRole userRole;
-    String role;
+    @Column( columnDefinition = "varchar(32) default 'USER' ")
+    @Enumerated(value = EnumType.STRING)
+    public UserRole role = UserRole.USER;
+  //  String role;
 }

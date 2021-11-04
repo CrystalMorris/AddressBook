@@ -4,6 +4,8 @@ package com.Crystal.AddressBook.services;
 import com.Crystal.AddressBook.models.User;
 import com.Crystal.AddressBook.repositories.UserRepository;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,8 +15,11 @@ public class UserServiceImp implements UserService {
 
     UserRepository userRepository;
 
+    PasswordEncoder passwordEncoder;
+
     public UserServiceImp(UserRepository userRepository){
         this.userRepository = userRepository;
+        this.passwordEncoder = new BCryptPasswordEncoder();
     }
      @Override
      public List<User> getUsers(){
@@ -36,11 +41,14 @@ public class UserServiceImp implements UserService {
     @Override
     public void updateUserPassword(Long id, User user){
        User userToUpdate = userRepository.findById(id).get();
-       userToUpdate.setPassword(user.getPassword());
+        String encodedPassword = this.passwordEncoder.encode(user.getPassword());
+       userToUpdate.setPassword(encodedPassword);
        userRepository.save(userToUpdate);
     }
     @Override
     public User insertUser(User user) {
+        String encodedPassword = this.passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         return userRepository.save(user);
     }
 
