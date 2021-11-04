@@ -27,7 +27,7 @@ public class AddressLoader implements CommandLineRunner {
                             .number("123")
                             .street("Oak Lane")
                             .unit("")
-                            .city("Sometown")
+                            .city("Some Town")
                             .state("MO")
                             .postalCode("12345")
                             .email("johndoe@nomail.com")

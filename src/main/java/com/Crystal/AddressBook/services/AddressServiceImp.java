@@ -12,6 +12,7 @@ public class AddressServiceImp implements AddressService{
     AddressRepository addressRepository;
 
     public AddressServiceImp(AddressRepository addressRepository){
+
         this.addressRepository = addressRepository;
     }
 
@@ -29,7 +30,7 @@ public class AddressServiceImp implements AddressService{
     }
 
     @Override
-    public Address insert(Address address) {
+    public Address insertAddress(Address address) {
         return addressRepository.save(address);
     }
 

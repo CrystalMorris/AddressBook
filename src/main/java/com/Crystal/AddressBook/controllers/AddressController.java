@@ -24,13 +24,13 @@ public class AddressController {
        List<Address> addresses = addressService.getAddresses();
        return new ResponseEntity<>(addresses, HttpStatus.OK);
     }
-    @GetMapping({"/{todoId}"})
+    @GetMapping({"/{addressId}"})
     public ResponseEntity<Address> getAddress(@PathVariable Long addressId) {
         return new ResponseEntity<>(addressService.getAddressById(addressId), HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity<Address> saveAddress(@RequestBody Address address) {
-        Address address1 = addressService.insert(address);
+        Address address1 = addressService.insertAddress(address);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("address", "/addresses" + address1.getId().toString());
         return new ResponseEntity<>(address1, httpHeaders, HttpStatus.CREATED);

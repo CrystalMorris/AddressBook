@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
@@ -14,13 +14,17 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Users {
+public class User {
 
     @Id
+    @GeneratedValue
     @Column(updatable = false,nullable = false)
+    Long id;
+    @Column(updatable = false,nullable = false, unique = true)
     String username;
     @Column(nullable = false)
     String password;
-    @Column(nullable = false)
-    String role;
+    @Column
+    UserRole userRole;
+//    String role;
 }
