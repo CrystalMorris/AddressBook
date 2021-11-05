@@ -5,8 +5,11 @@ import com.Crystal.AddressBook.models.User;
 import com.Crystal.AddressBook.models.UserRole;
 import com.Crystal.AddressBook.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.security.SecureRandom;
 
 @Component
 public class UserLoader implements CommandLineRunner {
@@ -24,12 +27,15 @@ public class UserLoader implements CommandLineRunner {
     }
 
     private void loadUsers(){
+        PasswordEncoder passwordEncoder;
+        int strength = 12;
+        passwordEncoder = new BCryptPasswordEncoder(strength, new SecureRandom());
         if(userRepository.count() == 0){
 
             userRepository.save(
                     User.builder()
                         .username("sparky")
-                        .password("$2a$12$jgFk/pQbnCT4LnvN20MEdenoVj7xadnmHbw4RbFUynEp9H6Iyv7Sm")
+                        .password(passwordEncoder.encode("roadIslandPickle"))
                         .role(UserRole.ADMIN)
                     .build()
             );
@@ -38,7 +44,7 @@ public class UserLoader implements CommandLineRunner {
 
                     User.builder()
                             .username("skyDancer")
-                            .password("$2a$12$JVF.hh.GIMq7tZEjzyskg.OEliNDH9GImHwk5NzkAmmgCWGalTSWi")
+                            .password(passwordEncoder.encode("stupidPw"))
                             .role(UserRole.USER)
                             .build()
             );

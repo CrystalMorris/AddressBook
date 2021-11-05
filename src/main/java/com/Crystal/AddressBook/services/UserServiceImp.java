@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -18,8 +19,9 @@ public class UserServiceImp implements UserService {
     PasswordEncoder passwordEncoder;
 
     public UserServiceImp(UserRepository userRepository){
+        int strength = 10;
         this.userRepository = userRepository;
-        this.passwordEncoder = new BCryptPasswordEncoder();
+        this.passwordEncoder = new BCryptPasswordEncoder(strength, new SecureRandom());
     }
      @Override
      public List<User> getUsers(){
