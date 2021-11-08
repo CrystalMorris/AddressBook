@@ -21,7 +21,7 @@ public class UserServiceImp implements UserService {
     public UserServiceImp(UserRepository userRepository){
         int strength = 10;
         this.userRepository = userRepository;
-        this.passwordEncoder = new BCryptPasswordEncoder(strength, new SecureRandom());
+        this.passwordEncoder = new BCryptPasswordEncoder();
     }
      @Override
      public List<User> getUsers(){
@@ -37,7 +37,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User getUserByUsername(String username){
-        return userRepository.findByUsername(username).get(0);
+        return userRepository.findByUsername(username);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class UserLoader implements CommandLineRunner {
     private void loadUsers(){
         PasswordEncoder passwordEncoder;
         int strength = 12;
-        passwordEncoder = new BCryptPasswordEncoder(strength, new SecureRandom());
+        passwordEncoder = new BCryptPasswordEncoder();
         if(userRepository.count() == 0){
 
             userRepository.save(

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/")
 public class UserController {
 
     UserService userService;
@@ -25,40 +25,40 @@ public class UserController {
     }
 
 
-    @GetMapping
+    @GetMapping({"/users"})
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> users = userService.getUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-    @GetMapping({"/{userId}"})
+    @GetMapping({"userId/{userId}"})
     public ResponseEntity<User> getUser(@PathVariable Long userId){
         return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
     }
-    @GetMapping("/user/{username}")
+    @GetMapping("/username/{username}")
     public ResponseEntity<User> getUser(@PathVariable String username){
         return new ResponseEntity<>(userService.getUserByUsername(username),HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping({"/register"})
     public ResponseEntity<User> saveUser(@RequestBody User user) {
         User user1 = userService.insertUser(user);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("user", "/users" + user1.getId().toString());
         return new ResponseEntity<>(user1, httpHeaders, HttpStatus.CREATED);
     }
-    @PutMapping({"/{userId}"})
+    @PutMapping({"userId/{userId}"})
     public ResponseEntity<User> updateUserPassword(@PathVariable("userId") Long userId,
                                                  @RequestBody User user) {
         userService.updateUserPassword(userId,user);
         return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
     }
-    @PutMapping({"/user/{username}"})
+    @PutMapping({"/username/{username}"})
     public ResponseEntity<User> updateUserPassword(@PathVariable("username") String username, @RequestBody User user){
         User thisUser = userService.getUserByUsername(username);
         userService.updateUserPassword(thisUser.getId(), user);
         return new ResponseEntity<>(userService.getUserByUsername(username), HttpStatus.OK);
     }
-    @DeleteMapping({"/{userId}"})
+    @DeleteMapping({"userId/{userId}"})
     public ResponseEntity<User> deleteUser(@PathVariable("userId") Long userId) {
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
